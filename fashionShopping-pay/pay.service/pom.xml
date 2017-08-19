@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.freedom.code</groupId>
+    <artifactId>fashionShopping-pay</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>pay.service</artifactId>
+  
+  <!-- jar包依赖 -->
+  <dependencies>
+  	<!-- 依赖daojar,由于依赖传递也依赖了common -->
+  	<dependency>
+  	  <groupId>com.freedom.code</groupId>
+	  <artifactId>pay.dao</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	
+  	<!-- 定时任务 -->
+	<dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz</artifactId>
+	</dependency>
+  	<!-- spring依赖 ，根据maven依赖管理，依赖jar包会自动下载-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<!-- 提供AspectJ切面技术 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	</dependency>
+	<!-- 消息 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jms</artifactId>
+	</dependency>
+	<!-- spring4.x 中使用MappingJackson2HttpMessageConverter 避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+	   <artifactId>jackson-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+	   <artifactId>jackson-databind</artifactId>
+	</dependency>
+  </dependencies>
+</project>

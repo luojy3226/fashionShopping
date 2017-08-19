@@ -1,0 +1,414 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.freedom.code</groupId>
+  <artifactId>fashionShopping</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>fashionShopping-api</module>
+  	<module>fashionShopping-browse</module>
+  	<module>fashionShopping-pay</module>
+  </modules>
+  <!-- 集中定义依赖jar的版本号 -->
+  <!-- 该元素可以定义属性 -->
+  <properties>
+  	<spring.version>4.3.3.RELEASE</spring.version>
+  	<junit.version>4.12</junit.version>
+  	<commons-lang3.version>3.4</commons-lang3.version>
+  	<commons-io.version>2.4</commons-io.version>
+  	<commons-net.version>3.3</commons-net.version>
+  	<commons-httpclient.version>4.5.2</commons-httpclient.version>
+  	<joda-time.version>2.9.7</joda-time.version>
+  	<jackson.version>2.8.7</jackson.version>
+  	<jackson-asl.version>1.9.13</jackson-asl.version>
+  	<slf4j.version>1.7.21</slf4j.version>
+  	<mybatis.version>3.4.1</mybatis.version>
+  	<mybatis-spring.version>1.3.0</mybatis-spring.version>
+  	<mybatis-generator.version>1.3.5</mybatis-generator.version>
+  	<mybatis-pagehlper.version>4.1.6</mybatis-pagehlper.version>
+  	<mybatis-paginator.version>1.2.15</mybatis-paginator.version>
+  	<mysql.version>6.0.5</mysql.version>
+  	<druid.version>1.0.26</druid.version>
+  	<jstl.version>1.2</jstl.version>
+  	<servlet-api.version>2.5</servlet-api.version>
+  	<filedupload.version>1.3.2</filedupload.version>
+  	<redis.version>2.9.0</redis.version>
+  	<solr.version>6.3.0</solr.version>
+  	<freemarker.version>2.3.23</freemarker.version>
+  	<guava.version>19.0</guava.version>
+  	<gson.version>2.8.0</gson.version>
+  	<quartz.version>2.2.1</quartz.version>
+  	<kaptcha.version>2.3.2</kaptcha.version>
+  	<pinyin4j.version>2.5.0</pinyin4j.version>
+  	<poi.version>3.15</poi.version>
+  	<jxls.version>1.0.6</jxls.version>
+  	<jxl.version>2.6.12</jxl.version>
+  	<zxing.version>3.3.0</zxing.version>
+  	<xbean-spring.version>3.18</xbean-spring.version>
+  	<activeMQ-care.version>5.7.0</activeMQ-care.version>
+  	<activeMQ-pool.version>5.14.3</activeMQ-pool.version>
+  	<project.build.sourceEncoding> UTF-8 </project.build.sourceEncoding>
+  </properties>
+  
+  <!-- 配置统一依赖 ,${}引用版本信息-->  
+ <!-- 使用该元素后，子元素会继承父元素的版本信息 -->
+<dependencyManagement>
+  <dependencies>
+  	<!-- 单元测试 -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>${junit.version}</version>
+	</dependency>
+	<!-- 拼音jar -->
+	<dependency>
+	    <groupId>com.belerweb</groupId>
+	    <artifactId>pinyin4j</artifactId>
+	    <version>${pinyin4j.version}</version>
+	</dependency>
+  	<!-- apache工具组件 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>${commons-lang3.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>${commons-io.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-net</groupId>
+	    <artifactId>commons-net</artifactId>
+	    <version>${commons-net.version}</version>
+	</dependency>
+	<!-- excel操作jar -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>${poi.version}</version>
+	</dependency>
+	<!-- jxls导出核心 -->
+	<dependency>
+	    <groupId>net.sf.jxls</groupId>
+	    <artifactId>jxls-core</artifactId>
+	    <version>${jxls.version}</version>
+	</dependency>
+	<!-- jxls导入核心 -->
+	<dependency>
+	    <groupId>net.sf.jxls</groupId>
+	    <artifactId>jxls-reader</artifactId>
+	    <version>${jxls.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>net.sourceforge.jexcelapi</groupId>
+	    <artifactId>jxl</artifactId>
+	    <version>${jxl.version}</version>
+	</dependency>
+	<!-- httpclient模仿http请求 -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>${commons-httpclient.version}</version>
+	</dependency>
+	<!-- 时间日期库 -->
+	<dependency>
+	    <groupId>joda-time</groupId>
+	    <artifactId>joda-time</artifactId>
+	    <version>${joda-time.version}</version>
+	</dependency>
+	<!-- jackson json包 -->
+	<!-- spring4.x 中使用MappingJackson2HttpMessageConverter代替旧的(spring3.x)MappingJacksonHttpMessageConverter
+	需要依赖下面两个json jar -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-core-asl</artifactId>
+	    <version>${jackson-asl.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-mapper-asl</artifactId>
+	    <version>${jackson-asl.version}</version>
+	</dependency>
+	
+	<!-- 日志 -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>${slf4j.version}</version>
+	</dependency>
+	<!-- mybatis -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis</artifactId>
+	    <version>${mybatis.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>${mybatis-spring.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.mybatis.generator</groupId>
+	    <artifactId>mybatis-generator-maven-plugin</artifactId>
+	    <version>${mybatis-generator.version}</version>
+	</dependency>
+	<!-- mybatis通用分页插件 -->
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>${mybatis-pagehlper.version}</version>
+	</dependency>
+	<dependency>  
+        <groupId>com.github.miemiedev</groupId>  
+        <artifactId>mybatis-paginator</artifactId>  
+        <version>${mybatis-paginator.version}</version>  
+    </dependency> 
+    <!-- mysql链接 -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>${mysql.version}</version>
+	</dependency>
+	<!-- 连接池 -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>${druid.version}</version>
+	</dependency>
+	<!-- jsp的jstl标签 -->
+	<dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>${jstl.version}</version>
+	</dependency>
+	<!-- provided已提供依赖范围，编译测试的时候有效 -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <version>${servlet-api.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	<!-- 文件上传 -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>${filedupload.version}</version>
+	</dependency>
+	<!-- redis -->
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>${redis.version}</version>
+	</dependency>
+	  <!-- solr搜索服务器 -->
+	<dependency>
+	    <groupId>org.apache.solr</groupId>
+	    <artifactId>solr-solrj</artifactId>
+	    <version>${solr.version}</version>
+	</dependency>
+	<!-- Template jar -->
+	<dependency>
+	    <groupId>org.freemarker</groupId>
+	    <artifactId>freemarker</artifactId>
+	    <version>${freemarker.version}</version>
+	</dependency>
+	<!--guava 代替commonsjar，更简洁  -->
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>${guava.version}</version>
+	</dependency>
+	<!-- 生成二维码 -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>${gson.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.zxing</groupId>
+	    <artifactId>core</artifactId>
+	    <version>${zxing.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.zxing</groupId>
+	    <artifactId>javase</artifactId>
+	    <version>${zxing.version}</version>
+	</dependency>
+	
+	<!-- 生成验证码  -->
+	<dependency>
+	    <groupId>com.google.code</groupId>
+	    <artifactId>kaptcha</artifactId>
+	    <version>${kaptcha.version}</version>
+	</dependency>
+	<!-- 定时任务 -->
+	<dependency>
+	    <groupId>org.quartz-scheduler</groupId>
+	    <artifactId>quartz</artifactId>
+	    <version>${quartz.version}</version>
+	</dependency>
+
+  	<!-- spring依赖 ，根据maven依赖管理，依赖jar包会自动下载-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<!-- 提供AspectJ切面技术 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<!-- 消息 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jms</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	<!-- xbean 如<amq:connectionFactory /> -->
+	<dependency>
+	    <groupId>org.apache.xbean</groupId>
+	    <artifactId>xbean-spring</artifactId>
+	    <version>${xbean-spring.version}</version>
+	</dependency>
+	<!-- activemq 消息中间件-->
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-core</artifactId>
+	    <version>${activeMQ-care.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-pool</artifactId>
+	    <version>${activeMQ-pool.version}</version>
+	</dependency>
+  </dependencies>
+</dependencyManagement> 
+
+ <!-- 构建插件 -->
+  <build>
+  	<finalName>${project.artifactId}</finalName><!-- 项目名称 -->
+	<directory>${project.basedir}/target</directory><!-- 目标文件路径 -->
+	<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes</outputDirectory><!-- 编译的class文件路径 -->
+	<testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory><!-- 测试编译的class文件路径 -->
+	<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory><!-- 源文件路径 -->
+	<testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory><!-- 测试源文件路径 -->
+	<!-- 资源过滤，让maven属性在源文件中能被解析-->
+	<resources>
+		<resource>
+			<directory>${project.basedir}/src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+		
+		<!-- 如果资源文件没在源文件路径下，加载的时候会被遗漏，需要将过滤设为false -->
+		<!--  <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>-->
+	</resources>
+	<testResources>
+		<testResource>
+			<directory>${project.basedir}/src/test/resources</directory>
+		</testResource>
+	</testResources>
+	
+	<!-- 插件 -->
+	<plugins>
+		<!-- 指定jdk版本 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.6.1</version>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+				<encoding>UTF-8</encoding>
+				<debug>true</debug>
+				<fork>true</fork>
+			</configuration>
+		</plugin>
+		<!-- 打包 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>3.0.0</version>
+		</plugin>
+		<!-- 源文件拷贝插件 -->
+<!-- 		<plugin> -->
+<!-- 			<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 			<artifactId>maven-resources-plugin</artifactId> -->
+<!-- 			<version>3.0.2</version> -->
+<!-- 			<configuration> -->
+<!-- 				<encoding>UTF-8</encoding> -->
+<!-- 			</configuration> -->
+<!-- 		</plugin> -->
+		<!-- junit测试插件 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.12.4</version>
+			<configuration>
+				<!-- 包括的内容 -->
+				<includes>
+<!-- 					<include>**/TestSuite.java</include> -->
+				</includes>
+				<!-- 排除的内容 -->
+				<excludes>
+<!-- 					<exclude>**/Abstract*</exclude> -->
+				</excludes>
+				<!-- 忽略测试出现的错误 -->
+				<testFailureIgnore>true</testFailureIgnore>
+			</configuration>
+		</plugin>
+		<!-- scm命令插件，方便的使用命令完成任务 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-scm-plugin</artifactId>
+			<version>1.9.5</version>
+			<configuration>
+				<goals>
+					<goal>install</goal>
+				</goals>
+				<scmVersionType>revision</scmVersionType>
+			</configuration>
+		</plugin>
+	</plugins>
+	<!-- 配置Tomcat插件，代替tomcat -->
+	<!--  <pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+	</pluginManagement>-->
+	</build>
+</project>

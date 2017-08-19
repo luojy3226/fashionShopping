@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.freedom.code</groupId>
+    <artifactId>fashionShopping</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.freedom.code</groupId>
+  <artifactId>common</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <!-- jar依赖 -->
+  <dependencies>
+  <!-- 单元测试 -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	</dependency>
+	<!-- 拼音jar -->
+	<dependency>
+		<groupId>com.belerweb</groupId>
+	    <artifactId>pinyin4j</artifactId>
+	</dependency>
+  	<!-- apache工具组件 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>commons-net</groupId>
+	    <artifactId>commons-net</artifactId>
+	</dependency>
+	<!-- excel操作jar -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>net.sf.jxls</groupId>
+	    <artifactId>jxls-core</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>net.sf.jxls</groupId>
+	    <artifactId>jxls-reader</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>net.sourceforge.jexcelapi</groupId>
+	    <artifactId>jxl</artifactId>
+	</dependency>
+	<!-- httpclient模仿http请求 -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	</dependency>
+	<!-- 时间日期库 -->
+	<dependency>
+	    <groupId>joda-time</groupId>
+	    <artifactId>joda-time</artifactId>
+	</dependency>
+	<!-- jackson json包 -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-core-asl</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-mapper-asl</artifactId>
+	</dependency>
+	<!-- 日志 -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	</dependency>
+	<!-- redis -->
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	</dependency>
+	<!--guava 代替commonsjar，更简洁  -->
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	</dependency>
+	<!-- 生成二维码 -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.zxing</groupId>
+	    <artifactId>core</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.zxing</groupId>
+	    <artifactId>javase</artifactId>
+	</dependency>
+	<!-- 生成验证码  -->
+	<dependency>
+	    <groupId>com.google.code</groupId>
+	    <artifactId>kaptcha</artifactId>
+	</dependency>
+	<!-- spring的工具类 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jms</artifactId>
+	</dependency>
+	<!-- 切面 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<!-- activeMQ消息 -->
+	<!-- xbean 如<amq:connectionFactory 便捷在spring中配置activeMQ/> -->
+	<dependency>
+	    <groupId>org.apache.xbean</groupId>
+	    <artifactId>xbean-spring</artifactId>
+	</dependency>
+	<!-- activemq 消息中间件-->
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-core</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-pool</artifactId>
+	</dependency>
+  </dependencies>
+</project>

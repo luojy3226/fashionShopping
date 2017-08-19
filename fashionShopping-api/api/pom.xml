@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.freedom.code</groupId>
+    <artifactId>fashionShopping-api</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>api</artifactId>
+  <packaging>war</packaging>
+  
+  <!-- jar包依赖 -->
+   <dependencies>
+   	<!-- 依赖service jar -->
+   	<dependency>
+   		<groupId>com.freedom.code</groupId>
+		<artifactId>api.service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+   	</dependency>
+   	<!-- jsp的jstl标签 -->
+	<dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	</dependency>
+	<!-- provided已提供依赖范围，编译测试的时候有效 -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+	<!-- 文件上传 -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	</dependency>
+	<!-- Template jar -->
+	<dependency>
+	    <groupId>org.freemarker</groupId>
+	    <artifactId>freemarker</artifactId>
+	</dependency>
+	
+   </dependencies>
+</project>

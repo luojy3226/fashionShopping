@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
+<generatorConfiguration>
+	<!-- mybatisGenerator插件依赖链接jar -->
+	<classPathEntry location="G:/lib/mysql-connector-java-5.1.21.jar" />
+	<context id="api">
+			<!-- 引用自定义的分页方法实现分页 -->
+<!-- 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" /> -->
+<!-- 		<plugin type="mybatis.MysqlPagePlugin" /> -->
+		<!-- 配置数据库链接方式 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/api?useUnicode=true&amp;characterEncoding=UTF8"
+			userId="root" password="1234">
+		</jdbcConnection>
+		<!-- 存放生成的简单实体类pojo -->
+		<javaModelGenerator targetPackage="com.freedom.code.model"
+			targetProject="pay.dao/src/main/java" />
+		<!-- 存放生成的xml映射文件 -->
+		<sqlMapGenerator targetPackage="com.freedom.code.persistence.xml"
+			targetProject="pay.dao/src/main/resources" />
+		<!-- 存放生成的mapper映射接口 -->
+		<javaClientGenerator targetPackage="com.freedom.code.mapper"
+			targetProject="pay.dao/src/main/java" type="XMLMAPPER" />
+
+	
+<!-- 生成表格对应的实体对象和相关映射文件 -->
+	<!--  
+	<table tableName="c_order" schema="jcc_api" domainObjectName="Order">
+		<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+	</table>
+	-->
+	</context>
+</generatorConfiguration>

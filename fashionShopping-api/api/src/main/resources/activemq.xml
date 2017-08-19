@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<context:component-scan base-package="com.freedom.code.activemq" />
+	<!-- spring自动装载 ，会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean
+	这两个bean是@controller注解分发请求必须的-->
+	<mvc:annotation-driven />
+	
+	<!-- activemq连接工厂 ,未联网配置：localhost:61616;联网配置：IP:61616-->
+	<amq:connectionFactory id="amqConnectionFactory" 
+        brokerURL="tcp://127.0.0.1:61616" 
+        userName="admin" 
+        password="admin" />
+        
+     <!-- spring的消息连接工厂，只是一个壳子真正负责连接消息服务器的是各类消息中间件 -->
+     <!-- 这采用缓存连接工厂，继承于单例连接工厂 -->
+     <bean id="connectionFactory"
+        class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory" />
+        <property name="sessionCacheSize" value="100" />
+    </bean>
+    
+    <!-- 点对点消息模型：消息队列 目的地-->
+    <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 消息队列名称 -->
+        <constructor-arg>
+            <value>queue</value>
+        </constructor-arg>
+    </bean>
+    
+    <!-- 发布、订阅消息类型 ：主题目的地-->
+     <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="topic"/>
+    </bean>
+    
+    <!-- 消息模板 ：点对点消息-->
+	 <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!-- 连接工厂 -->
+        <property name="connectionFactory" ref="connectionFactory" />
+        <!-- 点对点类型的消息 -->
+        <property name="defaultDestination" ref="queueDestination" />
+        <!-- 超时时间 -->
+        <property name="receiveTimeout" value="10000" />
+        <!-- true是topic，false是queue，默认是false，此处显示写出false -->
+        <property name="pubSubDomain" value="false" />
+    </bean>
+    
+    <!-- 消息监听器，当有消息时会自动读取消费消息 -->
+    <!-- 自定义的消息监听器 -->
+    <bean id="queueMessageListener" class="com.freedom.code.common.activemq.listener.QueueMessageListener" />
+    <!-- 消息监听器 -->
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <!-- 连接工厂 -->
+        <property name="connectionFactory" ref="connectionFactory" />
+        <!-- 默认消息目的地 -->
+        <property name="destination" ref="queueDestination" />
+        <!-- 自定义监听器 -->
+        <property name="messageListener" ref="queueMessageListener" />
+    </bean>
+    
+</beans>

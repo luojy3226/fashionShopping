@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:*.properties"/>
+	
+	<!-- 配置数据源 -->
+	<bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource"  destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" /> 
+  		<property name="url" value="${jdbc.url}" /> 
+  		<property name="username" value="${jdbc.username}" /> 
+  		<property name="password" value="${jdbc.password}" /> 
+		<!-- 配置初始化大小、最小、最大 --> 
+		<property name="initialSize" value="${initialSize}" /> 
+		<property name="minIdle" value="${minIdle}" /> 
+		<property name="maxActive" value="${maxActive}" />
+
+	    <!-- 配置获取连接等待超时的时间 --> 
+	    <property name="maxWait" value="${maxWait}" />
+
+	    <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 --> 
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 --> 
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+		<!-- 验证连接是否有效，不影响性能 -->
+  		<property name="testWhileIdle" value="true" />
+
+		<!-- 验证连接有效与否的SQL，不同的数据配置不同 --> 
+  		<property name="validationQuery" value="select 1 " />
+	</bean>
+	
+	<!-- spring-mybatis整合 -->
+	<!-- 配置sqlsessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 添加数据源 -->
+		<property name="dataSource" ref="datasource"></property>
+		<!-- 加载mapper.xml文件 -->
+		<property name="mapperLocations">
+            <list>
+                <value>classpath*:com/freedom/code/persistence/xml/**/*.xml</value>
+            </list>
+        </property>
+
+		<!-- 加载mybatis的全局配置文件 ，内置分页插件 -->
+		<property name="configLocation" value="classpath:/sqlMapPageHlperConfig.xml" />
+
+	</bean>
+	<!-- 配置扫描包，加载mapper代理对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 加载mapper接口 -->
+		<property name="basePackage" value="com.freedom.code.mapper" />
+		<!-- 加载映射关系 -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+</beans>
